@@ -3,18 +3,19 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width">
-        <title>SB</title>
+        <title>FireBrackets</title>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/10.3.1/firebase-app-compat.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/10.3.1/firebase-auth-compat.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/10.3.1/firebase-database-compat.js"></script>
+
+        <script type="module" src="/scripts/firebase.js"></script>
+        <script type="module" src="/scripts/authentication.js"></script>
     </head>
     <body>
-        <h1>SB</h1>
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username">
-
-        <label for="password">Password:</label>
-        <input type="text" id="password" name="password">
-
-        <input type="button" id="signup" value="Sign-Up">
+        <h1>Fire🔥Brackets</h1>
+        <h2 id="welcomeText">Please Log In Below</h2>
         <input type="button" id="login" value="Login">
-        <script src="scripts.js"></script>
+        <input style="visibility: hidden;" type="button" id="logout" value="Log Out">
     </body>
 </html>
