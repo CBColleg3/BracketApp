@@ -11,11 +11,20 @@
 
         <script type="module" src="/scripts/firebase.js"></script>
         <script type="module" src="/scripts/authentication.js"></script>
+        <script type="module" src="/scripts/tournament-showcase.js"></script>
+
+        <style>
+            table, th, td {
+              border:1px solid white;
+            }
+        </style>
     </head>
     <body>
-        <h1>Fire🔥Brackets</h1>
-        <h2 id="welcomeText">Please Log In Below</h2>
-        <input type="button" id="login" value="Login">
-        <input style="visibility: hidden;" type="button" id="logout" value="Log Out">
+        <div id="main">
+            <h1>Fire🔥Brackets</h1>
+            <h2 id="welcomeText">Please Log In Below</h2>
+            <input type="button" id="login" value="Login">
+            <input style="visibility: hidden;" type="button" id="logout" value="Log Out">
+        </div>
     </body>
 </html>
