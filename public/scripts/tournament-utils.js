@@ -12,4 +12,12 @@ export class Tournament {
     }
 }
 
+export class Player {
+    constructor(name, email, character) {
+        this.name = name;
+        this.email = email;
+        this.character = character;
+    }
+}
+
 export let Games = ["Mario Kart", "Super Smash Bros", "CTF", "Corporations with Andy Novocin", "Street Fighter", "Mortal Kombat"];

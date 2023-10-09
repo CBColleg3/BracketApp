@@ -1,7 +1,7 @@
 
 import { Games } from "./tournament-utils.js";
 import { Tournament } from "./tournament-utils.js";
-
+import { GoToUrl, GoToTournament } from "./routing-utils.js";
 
 export function ShowTournaments() {
 
@@ -58,30 +58,36 @@ function AddTourneyTable() {
         console.log(ss.val());
         document.getElementById("tourneyTableLayout").querySelector("tbody").innerHTML = "";
         ss.forEach(function(childNodes){
-            //This loop iterates over children of Tournaments
-            //childNodes.key is key of the children of userid such as (20170710)
-            //childNodes.val().name;
-            //childNodes.val().time;
-            //childNodes.val().rest_time;
-            //childNodes.val().interval_time;
 
             var nodeValue = childNodes.val()
-            AddTourneyRow(nodeValue.name, nodeValue.game);     
-      
+            AddTourneyRow(nodeValue.name, nodeValue.game, nodeValue.id);      
+            localStorage.setItem(nodeValue.id, nodeValue.name + "," + nodeValue.game);
+            
         });
 
+        let joinTourneyButtons  = document.getElementById("tourneyTableLayout").querySelectorAll("input");
+        console.log(joinTourneyButtons);
+        
+        joinTourneyButtons.forEach(el => {
+            el.addEventListener("click", (event) => {
+                // Something happens on click
+                var pathname = el.name.replace(/\s+/g, '') + "-" + el.id;
+                GoToUrl(pathname);
+                GoToTournament(el.id);
+            })
+        });
     });
 }
 
 
-function AddTourneyRow(name, game) {
+function AddTourneyRow(name, game, id) {
     
     var tourneytable = document.createElement("tr");
     tourneytable.innerHTML = `
     <tr>
       <td>${name}</td>
       <td>${game}</td>
-      <td><input id="joinTournament" type="button" value="Join Tournament">(83 entrants)</td>
+      <td><input name="${name}" id=${id} type="button" value="Join Tournament">(83 entrants)</td>
     </tr>
     `;
     console.log(document.getElementById("tourneyTableLayout").querySelector("tbody"));
