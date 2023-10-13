@@ -4,21 +4,31 @@ import { ShowTournaments } from "./tournament-showcase.js";
 document.querySelector("#login").addEventListener("click", LogInClicked);
 document.querySelector("#logout").addEventListener("click", LogOutClicked);
 
+let loggedInUser = false;
+
 document.addEventListener("DOMContentLoaded", function() {
     LoadAuthentication();
   });
 
 function LoadAuthentication() {
     console.log("loaded auth");
-    console.log(localStorage.getItem("name"));
-    if(localStorage.getItem("name")) {
-        document.querySelector("#welcomeText").innerHTML = `Welcome ${localStorage.getItem("name")}!`;
-        document.querySelector("#login").style.display = "none";
-        document.querySelector("#logout").style.display = "";
-        ShowTournaments();
+    firebase.auth().onAuthStateChanged(user => {
+        if(!!user) {
+            loggedInUser = user;
 
-        firebase.auth(); //Needed to do this to get firebase to automatically log u in???;
-    }
+            if(localStorage.getItem("name")) {
+                document.querySelector("#welcomeText").innerHTML = `Welcome ${localStorage.getItem("name")}!`;
+                document.querySelector("#login").style.display = "none";
+                document.querySelector("#logout").style.display = "";
+                console.log(localStorage.getItem("id"));
+
+                ShowTournaments();
+            }
+
+        } else {
+
+        }
+    }); //Needed to do this to get firebase to automatically log u in???;
 }
 
 export function LogInClicked() {
@@ -39,7 +49,10 @@ export function LogInClicked() {
             email: user.email
         }
 
-        firebase.database().ref(`/Users/${user.uid}`).set(playerInfo);
+        var playerRef = firebase.database().ref(`/Users`).push();
+        playerRef.set({"name": playerInfo.name, "email": playerInfo.email, "id": playerRef.key});
+
+
         document.querySelector("#welcomeText").innerHTML = `Welcome ${user.displayName}!`;
         document.querySelector("#login").style.display = "none";
         document.querySelector("#logout").style.display = "";
@@ -47,6 +60,7 @@ export function LogInClicked() {
 
         localStorage.setItem("name", user.displayName);
         localStorage.setItem("email", user.email);
+        localStorage.setItem("id", playerRef.key);
         ShowTournaments();
 
         console.log(localStorage.getItem("name"));

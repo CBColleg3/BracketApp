@@ -3,6 +3,8 @@ import { Games } from "./tournament-utils.js";
 import { Tournament } from "./tournament-utils.js";
 import { GoToUrl, GoToTournament } from "./routing-utils.js";
 
+let tourney = false;
+
 export function ShowTournaments() {
 
     console.log("Show Tournaments Called");
@@ -71,7 +73,7 @@ function AddTourneyTable() {
         joinTourneyButtons.forEach(el => {
             el.addEventListener("click", (event) => {
                 // Something happens on click
-                var pathname = el.name.replace(/\s+/g, '') + "-" + el.id;
+                var pathname = "Tournaments/"+ el.id;
                 GoToUrl(pathname);
                 GoToTournament(el.id);
             })
@@ -105,7 +107,9 @@ function CreateTournament() {
     console.log(document.getElementById("games").value);
     var gameName = document.getElementById("games").value;
 
-    var tourney = new Tournament(tourneyName, gameName, []);
+    tourney = new Tournament(tourneyName, gameName, []);
     console.log(tourney);
-    firebase.database().ref("/Tournaments").push(tourney);
+    var tourneyRef = firebase.database().ref("/Tournaments").push();
+    tourneyRef.set({"name": tourney.name, "game": tourney.game, "id": tourneyRef.key, "entrants": localStorage.getItem("name"), "creationDate": tourney.creationDate});
+    tourney.id = tourneyRef.key;
 }

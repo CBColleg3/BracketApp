@@ -3,7 +3,7 @@ import { nanoid } from "https://cdn.jsdelivr.net/npm/nanoid/nanoid.js";
 export class Tournament {
 
     constructor(name, game, entrants) {
-        this.id = nanoid(10);
+        this.id = 10;
 
         this.name = name;
         this.game = game;
