@@ -49,8 +49,8 @@ export function LogInClicked() {
             email: user.email
         }
 
-        var playerRef = firebase.database().ref(`/Users`).push();
-        playerRef.set({"name": playerInfo.name, "email": playerInfo.email, "id": playerRef.key});
+        console.log(user.uid);
+        var playerRef = firebase.database().ref(`/Users`).child(user.uid).set({"name": playerInfo.name, "email": playerInfo.email, "id": user.uid});
 
 
         document.querySelector("#welcomeText").innerHTML = `Welcome ${user.displayName}!`;
