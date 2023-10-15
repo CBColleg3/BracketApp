@@ -1,4 +1,5 @@
 
+import { routeToPage } from "./routing-utils.js";
 import { ShowTournaments } from "./tournament-showcase.js";
 
 document.querySelector("#login").addEventListener("click", LogInClicked);
@@ -10,8 +11,15 @@ document.addEventListener("DOMContentLoaded", function() {
     LoadAuthentication();
   });
 
+
 function LoadAuthentication() {
     console.log("loaded auth");
+    let pn = window.location.href;
+    let URLparts = pn.split("/");
+    URLparts.splice(0, 2);
+    console.log("pn: " + pn);
+    console.log("URL Parts: " + URLparts);
+
     firebase.auth().onAuthStateChanged(user => {
         if(!!user) {
             loggedInUser = user;
@@ -25,11 +33,14 @@ function LoadAuthentication() {
                 ShowTournaments();
             }
 
+            routeToPage(URLparts);
+
         } else {
 
         }
     }); //Needed to do this to get firebase to automatically log u in???;
 }
+
 
 export function LogInClicked() {
     console.log("log in clicked!");
@@ -69,6 +80,7 @@ export function LogInClicked() {
         alert("unable to log in...");
     });
 }
+
 
 export function LogOutClicked() {
     console.log("LogOut Clicked!");

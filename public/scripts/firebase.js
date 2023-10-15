@@ -15,5 +15,6 @@ measurementId: "G-0R61JXEQN8"
 
 // Initialize Firebase
 const app = firebase.initializeApp(firebaseConfig);
+console.log("initializeApp Worked");
 
 

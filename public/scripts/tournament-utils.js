@@ -13,10 +13,10 @@ export class Tournament {
 }
 
 export class Player {
-    constructor(name, email, character) {
+    constructor(name, id) {
         this.name = name;
-        this.email = email;
-        this.character = character;
+        this.id = id;
+        this.playerLost = false;
     }
 }
 
